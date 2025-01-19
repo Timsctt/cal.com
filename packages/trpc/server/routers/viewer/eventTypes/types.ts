@@ -65,6 +65,7 @@ const BaseEventTypeUpdateInput = _EventTypeModel
     instantMeetingSchedule: z.number().nullable(),
     multiplePrivateLinks: z.array(z.string()),
     assignAllTeamMembers: z.boolean(),
+    multiReservation: z.boolean(),
     isRRWeightsEnabled: z.boolean(),
     metadata: EventTypeMetaDataSchema,
     bookingFields: eventTypeBookingFields,
