@@ -95,6 +95,7 @@ export const updateHandler = async ({ ctx, input }: UpdateOptions) => {
         },
       },
       isRRWeightsEnabled: true,
+      multiReservation: true,
       hosts: {
         select: {
           userId: true,

@@ -43,11 +43,17 @@ export type EventSetupTabCustomClassNames = {
     container?: string;
     label?: string;
   };
+  multiReservationSection?: {
+    container?: string;
+    label?: string;
+    description?: string;
+    children?: string;
+  };
 };
 
 export type EventSetupTabProps = Pick<
   EventTypeSetupProps,
-  "eventType" | "locationOptions" | "team" | "teamMembers" | "destinationCalendar"
+  "eventType" | "locationOptions" | "team" | "teamMembers" | "destinationCalendar" | "multiReservation"
 > & {
   customClassNames?: EventSetupTabCustomClassNames;
 };
@@ -361,6 +367,48 @@ export const EventSetupTab = (
               )}
             />
           </div>
+        </div>
+        <div
+          className={classNames(
+            "border-subtle rounded-lg border p-6",
+            customClassNames?.locationSection?.container
+          )}>
+          <Controller
+            name="multiReservation"
+            control={formMethods.control}
+            defaultValue={eventType.multiReservation || false}
+            render={({ field: { onChange, value } }) => (
+              <SettingsToggle
+                toggleSwitchAtTheEnd={true}
+                title={t("enable_multi_reservation")}
+                description={t("enable_multi_reservation_description")}
+                checked={value}
+                onCheckedChange={(active) => {
+                  onChange(active);
+                }}>
+                {value && (
+                  <div className="border-subtle rounded-b-lg border border-t-0 p-6">
+                    <div className="flex items-center space-x-4">
+                      <Label htmlFor="maxReservations" className="text-sm">
+                        {t("max_reservations")}
+                      </Label>
+                      <input
+                        type="number"
+                        id="maxReservations"
+                        min="1"
+                        step="1"
+                        defaultValue={eventType.maxReservations || 1}
+                        className="w-20 rounded border p-2"
+                        onChange={(e) =>
+                          formMethods.setValue("maxReservations", parseInt(e.target.value, 10))
+                        }
+                      />
+                    </div>
+                  </div>
+                )}
+              </SettingsToggle>
+            )}
+          />
         </div>
       </div>
     </div>

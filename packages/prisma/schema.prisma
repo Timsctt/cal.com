@@ -160,6 +160,7 @@ model EventType {
   fieldTranslations                       EventTypeTranslation[]
   maxLeadThreshold                        Int?
   selectedCalendars                       SelectedCalendar[]
+  multiReservation                        Boolean                   @default(false)
 
   /// @zod.custom(imports.eventTypeColor)
   eventTypeColor                   Json?
